@@ -9,7 +9,7 @@ see test.ts file.
 
 ```sh
 
-deno test https://deno.land/x/sleep/test.ts
+deno test https://deno.land/x/ethereum/test.ts
   
 ```
 
