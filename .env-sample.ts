@@ -1,0 +1,1 @@
+export const apiKey = 'yourAPIKey' // you can get an api key via https://etherscan.io/register
