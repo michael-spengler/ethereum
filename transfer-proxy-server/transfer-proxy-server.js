@@ -17,6 +17,7 @@ const configFileId = path.join(path.resolve(''), './transfer-proxy-server/.env.j
 const config = fs.readJSON(configFileId)
 
 const web3 = new Web3(new Web3.providers.HttpProvider(`https://mainnet.infura.io/v3/${config.infuraProjectId}`));
+// let web3 = new Web3(Web3.givenProvider)
 
 executeMasterplan()
     .then((result) => {
@@ -57,30 +58,32 @@ function startListening(app) {
     }
 }
 
+ 
+async function transfer(fromAddress, toAddress, amountToBeSent, privateKey, chainId = 4) {
 
-function transfer(fromAddress, toAddress, amountToSend, privateKey, chainId = 4) {
-
-    console.log(`preparing transaction with \n${fromAddress} \n${toAddress} \n${amountToSend} \n${privateKey} \n${chainId}`)
-
-    const gasPrice = 2;
-    const gasLimit = 3000000;
+    console.log(`preparing transaction with \n${fromAddress} \n${toAddress} \n${amountToBeSent} \n${privateKey} \n${chainId}`)
 
     const EthereumTx = require('ethereumjs-tx').Transaction
     const privateKeyBuffer = Buffer.from(privateKey, 'hex')
-
+    
     var nonce = web3.eth.getTransactionCount(fromAddress);
+    
+    const myGasPrice = (await web3.eth.getGasPrice()) * 10
+    
+    console.log(amountToBeSent)
 
     const rawTransaction = {
         "from": fromAddress,
         "nonce": web3.utils.toHex(nonce),
-        "gasPrice": web3.utils.toHex(gasPrice * 1e9),
-        "gasLimit": web3.utils.toHex(gasLimit),
+        "gasPrice": web3.utils.toHex(myGasPrice),
+        "gasLimit": web3.utils.toHex(33000),
+        // "gasLimit": '0x2710',
         "to": toAddress,
-        "value": amountToSend,
-        "chainId": chainId //remember to change this
+        "value": amountToBeSent,
+        // "chainId": chainId //remember to change this
     };
 
-    const tx = new EthereumTx(rawTransaction, { chain: 'mainnet', hardfork: 'petersburg' })
+    const tx = new EthereumTx(rawTransaction)
     tx.sign(privateKeyBuffer)
 
     const serializedTx = tx.serialize()
