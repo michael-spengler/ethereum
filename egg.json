@@ -1,10 +1,10 @@
 {
-                                "name": "",
-                                "description": "",
-                                "homepage": "",
-                                "files": [
-                                  "./**/*.ts",
-                                  "README.md"
-                                ],
-                                "entry": "./mod.ts"
-                              }
+        "name": "ethereum",
+        "description": "Deno Module to interact with the Ethereum Network - e.g. providing an etherscan api wrapper ... ",
+        "homepage": "https://github.com/michael-spengler/ethereum",
+        "files": [
+            "./**/*.ts",
+            "README.md"
+        ],
+        "entry": "./mod.ts"
+}
