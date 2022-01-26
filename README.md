@@ -1,5 +1,12 @@
 # Ethereum
 
+This module was drafted before we have provided: 
+https://deno.land/x/web3
+
+Most of you might rather use https://deno.land/x/web3.
+
+Feel free to contribute and to add distinct features via PR. 
+
 ## Usage Example
 
 see test.ts file.
@@ -12,13 +19,3 @@ see test.ts file.
 deno test https://deno.land/x/ethereum/test.ts
   
 ```
-
-## Contributions are welcome
-I'm relatively new to these topics...
-
-## Support my Open Source Contributions
-
-If you like my work please consider downloading the brave browser via my
-promotion link: [https://brave.com/fan464](https://brave.com/fan464).
-
-![![](https://brave.com/)](https://brave.com/wp-content/uploads/2019/01/logotype-full-color.svg)
