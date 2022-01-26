@@ -5,12 +5,13 @@ export class EtherscanAPI {
 
     private static baseURL = 'https://api.etherscan.io/'
 
-    public static async getEtherBalanceForASingleAddress(address: string, apiKey: string) {
+    public static async getEtherBalanceForASingleAddress(address: string, apiKey: string, inEther: boolean) {
         const endPoint = `/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
         const result = await Request.get(`${this.baseURL}${endPoint}`)
-
+        if(inEther==true){
+            result.result = result.result/1000000000000000000  // api response is in unit wei --> change it to ether
+        }
         log.info(JSON.stringify(result))
-
         return result
     }
 
@@ -19,7 +20,6 @@ export class EtherscanAPI {
         const result = await Request.get(`${this.baseURL}${endPoint}`)
 
         log.info(JSON.stringify(result))
-
         return result
     }
 
@@ -28,7 +28,20 @@ export class EtherscanAPI {
         const result = await Request.get(`${this.baseURL}${endPoint}`)
 
         log.info(JSON.stringify(result))
-
+        return result
+    }
+    public static async getGasFees(apiKey: string) {
+        const endPoint = `/api?module=gastracker&action=gasoracle&apikey=${apiKey}` 
+        const result = await Request.get(`${this.baseURL}${endPoint}`)
+        
+        log.info(JSON.stringify(result))
+        return result
+    }
+    public static async currentPrice(apiKey: string) {
+        const endPoint = `/api?module=stats&action=ethprice&apikey=${apiKey}` 
+        const result = await Request.get(`${this.baseURL}${endPoint}`)
+        
+        log.info(JSON.stringify(result))
         return result
     }
 }
